@@ -1,0 +1,30 @@
+# Python-specific ignores
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info
+*.dist-info
+.pytest_cache/
+build/
+dist/
+*.manifest
+*.spec
+
+# Virtual environment
+venv/
+.env
+
+# IDE-specific ignores
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# Additional project-specific ignores
+schedule/last_updated.json
+thread_history/

@@ -1,0 +1,25 @@
+[
+  {
+    "query": "Hi there, I have some questions about some of my passwords or accounts.",
+    "expected_tool_use": [],
+    "reference": "Hello! I can help with that. What would you like to know based on Hugo's password hint file?"
+  },
+  {
+    "query": "What Kahoot account do I have?",
+    "expected_tool_use": [
+      {
+        "tool_name": "retrieve_rag_documentation",
+        "tool_input": {
+          "query": "Look for Kahoot account in Hugo's password hint file."
+        }
+      }
+    ],
+    "reference": "You have the Teacher - School account, with the email is Yahoo and password managed by Bit Warden. [Citation: Based on pwd.docx]"
+  },
+ 
+  {
+    "query": "That covers my questions for now. Thanks!",
+    "expected_tool_use": [],
+    "reference": "You're welcome! Glad I could help. Feel free to ask if anything else comes up."
+  }
+]
