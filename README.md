@@ -47,6 +47,8 @@ For more details, refer to the [RAG-README.md](RAG-README.md).
     + Checks for new documents edited and updates the corpus (delete old document and upload updated document to the corpus).
     + Log corpus checking & updating history to log file (`schedule/upload_history.log`)
 
+    ![Document update check history](images/update_history.png)
+
 
 ## Local GUI
 The local GUI, implemented in `app.py`, provides an intuitive and user-friendly interface for interacting with the system. It allows users to:
