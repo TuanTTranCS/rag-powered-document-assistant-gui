@@ -35,8 +35,17 @@ if not LOCATION:
     raise ValueError(
         "GOOGLE_CLOUD_LOCATION environment variable not set. Please set it in your .env file."
     )
-CORPUS_DISPLAY_NAME = os.getenv("CORPUS_DISPLAY_NAME", "Hugo_private_docs")
-CORPUS_DESCRIPTION = "Corpus containing Hugo's private documents."
+CORPUS_DISPLAY_NAME = os.getenv("CORPUS_DISPLAY_NAME", None)
+if not CORPUS_DISPLAY_NAME:
+    raise ValueError(
+        "CORPUS_DISPLAY_NAME environment variable not set. Please set it in your .env file."
+    )
+CORPUS_DESCRIPTION = os.getenv("CORPUS_DESCRIPTION", None)
+if not CORPUS_DESCRIPTION:
+    raise ValueError(
+        "CORPUS_DESCRIPTION environment variable not set. Please set it in your .env file."
+    )
+
 FILE_URL = os.getenv("FILE_URL", None)
 FILE_NAME = os.getenv("FILE_NAME", None)
 
@@ -49,9 +58,7 @@ ENV_FILE_PATH = os.path.abspath(
 def initialize_vertex_ai():
     credentials, project = default()
     print(f"Authenticated with project: {project}")
-    # credentials = _oauth2client.oauth2client.service_account.ServiceAccountCredentials.from_json_keyfile_name(
-    #     os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-    # )
+
     vertexai.init(project=PROJECT_ID, location=LOCATION
                   , credentials=credentials
                   )
