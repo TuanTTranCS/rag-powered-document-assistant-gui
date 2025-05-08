@@ -21,10 +21,13 @@ if not LOCATION:
     raise ValueError(
         "GOOGLE_CLOUD_LOCATION environment variable not set. Please set it in your .env file."
     )
-CORPUS_DISPLAY_NAME = os.getenv("CORPUS_DISPLAY_NAME", "Hugo_private_docs")
-CORPUS_DESCRIPTION = "Corpus containing Hugo's private documents."
-FILE_URL = "C:\\Users\\tuant\\OneDrive\\Documents\\accounts-pwds-banks\\pwd.docx"
-FILENAME = "pwd.docx"
+CORPUS_DISPLAY_NAME = os.getenv("CORPUS_DISPLAY_NAME", None)
+if not CORPUS_DISPLAY_NAME:
+    raise ValueError(
+        "CORPUS_DISPLAY_NAME environment variable not set. Please set it in your .env file."
+    )
+FILE_URL = os.getenv("FILE_URL", None)
+FILE_NAME = os.getenv("FILE_NAME", None)
 ENV_FILE_PATH = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", "..", ".env")
 )
