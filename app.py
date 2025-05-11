@@ -191,7 +191,13 @@ class ChatApp:
             messagebox.showerror("Error", "No thread selected.")
             return
 
-        thread_title = self.thread_list.get(selected[0])
+        thread_display_name = self.thread_list.get(selected[0])
+        thread_title = thread_display_name.split(' - ')[0]  # Extract only the timestamp part
+
+        if thread_title not in self.threads:
+            messagebox.showerror("Error", f"Thread '{thread_title}' not found.")
+            return
+
         del self.threads[thread_title]
         self.current_thread = None
         self.chat_display.config(state="normal")
