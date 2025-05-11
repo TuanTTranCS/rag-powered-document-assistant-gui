@@ -27,9 +27,16 @@ After running the permission setup script `grant_permission.sh`, the service acc
 ```shell
 service-${PROJECT_NUMBER}@gcp-sa-aiplatform-re.iam.gserviceaccount.com
 ```
-To verify, that service account will be granted the following roles in IAM:
+To verify if the script ran successfully, check that service account will be granted the following roles in IAM:
 * Vertex AI Custom Code Service Agent
 * RAG Corpus Query Role
+
+### Create your own storage bucket for the GCloud project
+The instructions in the original README and the source repository did not mention anything about the `STAGING_BUCKET` in the deployment code (`deployment/deploy.py`), which is configured with the same variable name in the `.env` environment file . If your GCloud project does not already have a bucket created, you need to create one. The staging bucket is used to temporarily store artifacts and deployment files required by Vertex AI during the deployment process. 
+
+Follow these instructions to create a new bucket for your project: [Create a bucket](https://cloud.google.com/storage/docs/creating-buckets#console).
+
+![Staging bucket](images/staging_bucket.png)
 
 ## Summary of RAG Agent
 The RAG agent is designed to answer document-related questions by leveraging the Vertex AI RAG Engine. It retrieves relevant snippets and synthesizes responses using an LLM. Key features include:
