@@ -11,7 +11,7 @@ class ChatApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Password Reminder")
-        root.iconbitmap("./images/app_icon_32.ico")
+        root.iconbitmap("images/app_icon_32.ico")
         # Initialize threads and current thread
         self.threads = {}
         self.current_thread = None
