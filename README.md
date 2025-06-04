@@ -1,6 +1,6 @@
 # RAG-Powered Document Assistant with Local GUI.
 ## Project Overview
-This project is a comprehensive solution for document-based question answering and password reminders. It leverages the Retrieval-Augmented Generation (RAG) agent using Google Vertex AI and the Agent Development Kit (ADK) to provide accurate and context-aware responses. The project is developed based on the source repo: [Documentation Retrieval Agent](https://github.com/google/adk-samples/tree/main/agents/RAG). The system includes additional features for automatic document updates, re-indexing, and a local GUI for user interaction.
+This project is a comprehensive solution for document-based question answering and password reminders. It leverages the Retrieval-Augmented Generation (RAG) agent using Google Vertex AI and the Agent Development Kit (ADK) to provide accurate and context-aware responses. The project is developed based on the source repo: [Documentation Retrieval Agent](https://github.com/google/adk-samples/tree/main/python/agents/RAG). The system includes additional features for automatic document updates, re-indexing, and a local GUI for user interaction.
 
 ## Features
 - **Password Reminder and Document Q&A:**
