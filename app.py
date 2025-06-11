@@ -26,7 +26,7 @@ class ChatApp:
         thread_label.grid(row=0, column=0, padx=10, pady=(10, 0), sticky="w")
 
         thread_frame = tk.Frame(root)
-        thread_frame.grid(row=1, column=0, rowspan=5, padx=10, pady=5, sticky="ns")
+        thread_frame.grid(row=1, column=0, rowspan=5, padx=10, pady=5, sticky="nsew")
 
         thread_scrollbar = ttk.Scrollbar(thread_frame, orient="vertical")
         thread_scrollbar_horizontal = ttk.Scrollbar(thread_frame, orient="horizontal")
@@ -78,7 +78,8 @@ class ChatApp:
         self.send_button = tk.Button(root, text="Send", command=self.send_message)
         self.send_button.grid(row=3, column=3, padx=10, pady=5, sticky="w")
 
-        root.grid_columnconfigure(1, weight=1)
+        root.grid_columnconfigure(0, weight=1)
+        root.grid_columnconfigure(1, weight=3)
         root.grid_rowconfigure(1, weight=1)
 
         # Load threads from local JSON files
@@ -143,10 +144,12 @@ class ChatApp:
 
     def update_thread_list(self):
         self.thread_list.delete(0, tk.END)
+        self.display_name_to_thread = {}  # Map display name to thread title
         for thread, messages in sorted(self.threads.items()):
             first_message = messages[0]['message'][:50] if messages else "No messages"
             display_name = f"{thread} - {first_message}"
             self.thread_list.insert(tk.END, display_name)
+            self.display_name_to_thread[display_name] = thread
 
     def select_thread(self, event):
         selected = self.thread_list.curselection()
@@ -158,11 +161,9 @@ class ChatApp:
             self.save_thread(self.current_thread)
 
         thread_display_name = self.thread_list.get(selected[0])
-        thread_title = thread_display_name.split(' - ')[0]
-
-        # Ensure the thread exists in memory before switching
-        if thread_title not in self.threads:
-            messagebox.showerror("Error", f"Thread '{thread_title}' not found.")
+        thread_title = self.display_name_to_thread.get(thread_display_name)
+        if not thread_title or thread_title not in self.threads:
+            messagebox.showerror("Error", "Thread not found.")
             return
 
         self.current_thread = thread_title
@@ -192,10 +193,9 @@ class ChatApp:
             return
 
         thread_display_name = self.thread_list.get(selected[0])
-        thread_title = thread_display_name.split(' - ')[0]  # Extract only the timestamp part
-
-        if thread_title not in self.threads:
-            messagebox.showerror("Error", f"Thread '{thread_title}' not found.")
+        thread_title = self.display_name_to_thread.get(thread_display_name)
+        if not thread_title or thread_title not in self.threads:
+            messagebox.showerror("Error", "Thread not found.")
             return
 
         del self.threads[thread_title]
@@ -204,6 +204,12 @@ class ChatApp:
         self.chat_display.delete(1.0, tk.END)
         self.chat_display.config(state="disabled")
         self.update_thread_list()
+        self.thread_list.selection_clear(0, tk.END)  # Clear selection
+        if self.thread_list.size() > 0:
+            self.thread_list.selection_set(0)
+            self.thread_list.activate(0)
+            # Simulate a click on the first item to load its content
+            self.select_thread(None)
 
         # Delete the corresponding JSON file
         sanitized_title = self.sanitize_filename(thread_title)
